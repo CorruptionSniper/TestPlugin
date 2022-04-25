@@ -1,0 +1,33 @@
+name: Plugin
+version: '1.0'
+main: me.corruptionsniper.plugin.Main
+api-version: 1.18
+authors: [ CorruptionSniper ]
+description: Learning how to code with java
+commands:
+  stick:
+    description: Thy Stick
+
+  test:
+    description: -test-
+
+  heal:
+    description: Restores health and hunger for the player
+
+  togglechat:
+    description: Toggles the chat on/off for everyone
+
+  vanish:
+    description: Toggles your visibility for other players on the server
+
+  weapon:
+    description: Gives custom weapons to the player (usage /weapon [snowball_launcher | egg_launcher])
+
+  message:
+    description: Message a player directly (usage /message <player> <message>)
+
+  reply:
+    description: Messages the most recent player you have messaged (usage /reply <message>)
+
+  menu:
+    description: Opens a menu with a bunch of tools
