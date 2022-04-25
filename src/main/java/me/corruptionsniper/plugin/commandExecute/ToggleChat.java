@@ -11,6 +11,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class ToggleChat implements CommandExecutor, Listener {
 
+    //The toggle variable
     static private boolean tcToggle = true;
 
     @Override

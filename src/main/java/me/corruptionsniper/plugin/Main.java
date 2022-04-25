@@ -15,7 +15,7 @@ import java.util.UUID;
 
 public final class Main extends JavaPlugin implements Listener {
 
-    private HashMap<UUID, UUID> recentMessages;
+    private HashMap<UUID, UUID> recentMessages; //The hashmap used to store the sender and receiver of the MessageSendCommand
 
     @Override
     public void onEnable() {
@@ -46,6 +46,6 @@ public final class Main extends JavaPlugin implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         recentMessages.remove(event.getPlayer().getUniqueId());
-    }
+    } //Removes players that go offline from the hashmap
 
 }
