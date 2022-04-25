@@ -13,6 +13,7 @@ public class MenuListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
+        // Checks if the Inventory clicked is named "Menu" and is green and if the click was on an object
         if (ChatColor.translateAlternateColorCodes('&', event.getView().getTitle()).equals(ChatColor.DARK_GREEN + "Menu") && event.getCurrentItem() != null) {
             event.setCancelled(true);
 
