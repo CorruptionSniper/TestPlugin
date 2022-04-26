@@ -44,8 +44,8 @@ public final class Main extends JavaPlugin implements Listener {
     public HashMap<UUID, UUID> getRecentMessages() {return recentMessages;}
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent event) {
+    public void onQuit(PlayerQuitEvent event) { //Removes players that go offline in the server from the hashmap
         recentMessages.remove(event.getPlayer().getUniqueId());
-    } //Removes players that go offline from the hashmap
+    }
 
 }
