@@ -2,6 +2,7 @@ package me.corruptionsniper.plugin;
 
 
 import me.corruptionsniper.plugin.commandExecute.*;
+import me.corruptionsniper.plugin.tabCompleter.GetPlayerSkullCommandTabCompleter;
 import me.corruptionsniper.plugin.tabCompleter.MessageSendCommandTabCompleter;
 import me.corruptionsniper.plugin.tabCompleter.WeaponsCommandTabCompleter;
 import org.bukkit.Bukkit;
@@ -34,9 +35,11 @@ public final class Main extends JavaPlugin implements Listener {
         getCommand("message").setExecutor(new MessageSendCommand(this));
         getCommand("reply").setExecutor(new MessageReplyCommand(this));
         getCommand("menu").setExecutor(new MenuCommand());
+        getCommand("getplayerskull").setExecutor(new GetPlayerSkullCommand());
 
         getCommand("weapon").setTabCompleter(new WeaponsCommandTabCompleter());
         getCommand("message").setTabCompleter(new MessageSendCommandTabCompleter());
+        getCommand("getplayerskull").setTabCompleter(new GetPlayerSkullCommandTabCompleter());
 
         recentMessages = new HashMap<>();
     }
@@ -47,5 +50,4 @@ public final class Main extends JavaPlugin implements Listener {
     public void onQuit(PlayerQuitEvent event) { //Removes players that go offline in the server from the hashmap
         recentMessages.remove(event.getPlayer().getUniqueId());
     }
-
 }

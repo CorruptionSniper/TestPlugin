@@ -31,3 +31,6 @@ commands:
 
   menu:
     description: Opens a menu with a bunch of tools
+
+  getplayerskull:
+    description: Gets the player's skull

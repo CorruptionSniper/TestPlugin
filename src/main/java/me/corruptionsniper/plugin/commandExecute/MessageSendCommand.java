@@ -23,7 +23,7 @@ public class MessageSendCommand implements CommandExecutor {
             Player player = (Player) sender;
             if (args.length >= 2) {
 
-                if (Bukkit.getPlayerExact(args[0]) != null) { //Checks if the player is on the server
+                if (Bukkit.getPlayerExact(args[0]) != null) { //Checks if the player specified is on the server
                     Player target = Bukkit.getPlayerExact(args[0]);
 
                     StringBuilder builder = new StringBuilder(); //Creates the variable that stores the message to be sent
@@ -36,7 +36,7 @@ public class MessageSendCommand implements CommandExecutor {
 
                     main.getRecentMessages().put(player.getUniqueId(), target.getUniqueId()); //Adds the players to a hashmap in main that is used by MessageReplyCommand
                 } else {
-                    player.sendMessage(ChatColor.RED + "That player is not online at the moment");
+                    player.sendMessage(ChatColor.RED + "The player specified is not online");
                 }
 
             } else {
