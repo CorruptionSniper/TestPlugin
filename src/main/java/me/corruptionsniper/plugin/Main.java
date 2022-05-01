@@ -1,10 +1,10 @@
 package me.corruptionsniper.plugin;
 
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import me.corruptionsniper.plugin.commandExecute.*;
-import me.corruptionsniper.plugin.tabCompleter.GetPlayerSkullCommandTabCompleter;
-import me.corruptionsniper.plugin.tabCompleter.MessageSendCommandTabCompleter;
-import me.corruptionsniper.plugin.tabCompleter.WeaponsCommandTabCompleter;
+import me.corruptionsniper.plugin.tabCompleter.*;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

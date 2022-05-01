@@ -1,5 +1,7 @@
 package me.corruptionsniper.plugin.commandExecute;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -16,8 +18,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Collections;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class WeaponsCommand implements CommandExecutor, Listener {
+
+    private Cache<UUID,Long> cooldown = CacheBuilder.newBuilder().expireAfterWrite(150, TimeUnit.MILLISECONDS).build();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
@@ -49,7 +55,19 @@ public class WeaponsCommand implements CommandExecutor, Listener {
 
                     //Gives the player the Egg Launcher
                     player.getInventory().addItem(el);
-                }
+
+                } /*else if (args[0].equalsIgnoreCase("test_gun")) {
+                    //Creates the Egg Launcher
+                    ItemStack gun = new ItemStack(Material.GOLDEN_HOE);
+                    ItemMeta gunMeta = gun.getItemMeta();
+                    gunMeta.setDisplayName(ChatColor.AQUA + "Test Gun");
+                    gunMeta.setLore(Collections.singletonList("experimental"));
+                    gunMeta.isUnbreakable();
+                    gun.setItemMeta(gunMeta);
+
+                    //Gives the player the Test Gun
+                    player.getInventory().addItem(gun);
+                }*/
 
             } else {
                 player.sendMessage(ChatColor.RED + "incorrect usage: /weapon [snowball_launcher | egg_launcher]");
@@ -65,18 +83,26 @@ public class WeaponsCommand implements CommandExecutor, Listener {
 
         if (event.hasItem()) { //Checks for the item in hand
 
-            // Checks if Item is Snowball Launcher
-            if (event.getItem().getType().equals(Material.DIAMOND_HOE) && event.getItem().getItemMeta().getDisplayName().equals(ChatColor.AQUA + "Snowball Launcher")) {
-                // Shoots the Snowball
-                player.launchProjectile(Snowball.class);
-                player.playSound(player.getLocation(),Sound.ENTITY_SNOWBALL_THROW,1.0F,1.0F);
+            if (!cooldown.asMap().containsKey(player.getUniqueId())) {
 
-            // Checks if Item is Egg Launcher
-            } else if (event.getItem().getType().equals(Material.IRON_HOE) && event.getItem().getItemMeta().getDisplayName().equals(ChatColor.AQUA + "Egg Launcher")) {
-                // Shoots the Egg
-                player.launchProjectile(Egg.class);
-                player.playSound(player.getLocation(),Sound.ENTITY_EGG_THROW,1.0F,1.0F);
+                // Checks if Item is Snowball Launcher
+                if (event.getItem().getType().equals(Material.DIAMOND_HOE) && event.getItem().getItemMeta().getDisplayName().equals(ChatColor.AQUA + "Snowball Launcher")) {
+                    // Shoots the Snowball
+                    player.launchProjectile(Snowball.class);
+                    player.playSound(player.getLocation(), Sound.ENTITY_SNOWBALL_THROW, 1.0F, 1.0F);
+
+                    // Checks if Item is Egg Launcher
+                } else if (event.getItem().getType().equals(Material.IRON_HOE) && event.getItem().getItemMeta().getDisplayName().equals(ChatColor.AQUA + "Egg Launcher")) {
+                    // Shoots the Egg
+                    player.launchProjectile(Egg.class);
+                    player.playSound(player.getLocation(), Sound.ENTITY_EGG_THROW, 1.0F, 1.0F);
+
+                } /*else if (event.getItem().getType().equals(Material.GOLDEN_HOE) && event.getItem().getItemMeta().getDisplayName().equals(ChatColor.AQUA + "Test Gun")) {
+                player.launchProjectile()
+            }*/
+                cooldown.put(player.getUniqueId(), System.currentTimeMillis() + 150);
             }
+
         }
 
     }
