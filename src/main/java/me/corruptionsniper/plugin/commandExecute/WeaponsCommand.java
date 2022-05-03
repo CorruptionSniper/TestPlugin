@@ -55,19 +55,7 @@ public class WeaponsCommand implements CommandExecutor, Listener {
 
                     //Gives the player the Egg Launcher
                     player.getInventory().addItem(el);
-
-                } /*else if (args[0].equalsIgnoreCase("test_gun")) {
-                    //Creates the Egg Launcher
-                    ItemStack gun = new ItemStack(Material.GOLDEN_HOE);
-                    ItemMeta gunMeta = gun.getItemMeta();
-                    gunMeta.setDisplayName(ChatColor.AQUA + "Test Gun");
-                    gunMeta.setLore(Collections.singletonList("experimental"));
-                    gunMeta.isUnbreakable();
-                    gun.setItemMeta(gunMeta);
-
-                    //Gives the player the Test Gun
-                    player.getInventory().addItem(gun);
-                }*/
+                }
 
             } else {
                 player.sendMessage(ChatColor.RED + "incorrect usage: /weapon [snowball_launcher | egg_launcher]");
@@ -97,9 +85,7 @@ public class WeaponsCommand implements CommandExecutor, Listener {
                     player.launchProjectile(Egg.class);
                     player.playSound(player.getLocation(), Sound.ENTITY_EGG_THROW, 1.0F, 1.0F);
 
-                } /*else if (event.getItem().getType().equals(Material.GOLDEN_HOE) && event.getItem().getItemMeta().getDisplayName().equals(ChatColor.AQUA + "Test Gun")) {
-                player.launchProjectile()
-            }*/
+                }
                 cooldown.put(player.getUniqueId(), System.currentTimeMillis() + 150);
             }
 
