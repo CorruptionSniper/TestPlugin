@@ -1,11 +1,9 @@
 package me.corruptionsniper.plugin;
 
-
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
 import me.corruptionsniper.plugin.commandExecute.*;
 import me.corruptionsniper.plugin.tabCompleter.*;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -25,6 +23,7 @@ public final class Main extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new ToggleChat(),this);
         Bukkit.getPluginManager().registerEvents(new WeaponsCommand(),this);
         Bukkit.getPluginManager().registerEvents(new MenuListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerHealthScoreboard(), this);
 
         getCommand("stick").setExecutor(new StickCommand());
         getCommand("test").setExecutor(new TestCommand());
@@ -42,9 +41,20 @@ public final class Main extends JavaPlugin implements Listener {
         getCommand("getplayerskull").setTabCompleter(new GetPlayerSkullCommandTabCompleter());
 
         recentMessages = new HashMap<>();
+        refreshTimer();
     }
 
     public HashMap<UUID, UUID> getRecentMessages() {return recentMessages;}
+
+    private void refreshTimer() {
+        Bukkit.getScheduler().runTaskTimer(this, () -> {
+            for (Player target : Bukkit.getOnlinePlayers()) {
+                int health = (int) target.getHealth();
+                target.getScoreboard().getTeam("playerHealth").setSuffix(String.valueOf(health));
+            }
+
+        }, 100, 20);
+    }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) { //Removes players that go offline in the server from the hashmap
